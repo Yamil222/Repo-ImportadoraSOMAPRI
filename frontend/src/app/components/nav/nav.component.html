@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- Menú de inicio -->
+    <ion-buttons slot="start" *ngIf="isAuthenticated">
+      <ion-menu-button class="buttons-men"></ion-menu-button>
+    </ion-buttons>
+
+    <div class="container">
+      <div class="left-item">SOMAPRI</div>
+    </div>
+
+    <!-- Email del usuario alineado a la derecha y en tamaño pequeño -->
+    <ion-buttons slot="end">
+      <div *ngIf="isAuthenticated" class="user-info">
+        <h6 class="email-text">Usuario: {{ usuario.email }}</h6>
+      </div>
+
+      <!-- Botón de cerrar sesión -->
+      <ion-button *ngIf="isAuthenticated" color="danger" (click)="logout()">
+        <span *ngIf="!isMobile">Cerrar Sesión</span>
+        <ion-icon *ngIf="isMobile" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

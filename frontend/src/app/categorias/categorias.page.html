@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-button color="success" (click)="openRegisterModal()" expand="full">Registrar Categoria</ion-button>
+  </div>
+  <div style = "padding-left: 1%;">
+    <ion-text color="danger" *ngIf="errorMessage"> {{ errorMessage }} </ion-text>
+    <ion-text color="success" *ngIf="Message"> {{ Message }} </ion-text>
+    <br><br>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let categoria of categorias">
+      <ion-label>
+        <h2>{{ categoria.nombre }}</h2>
+        <p class="pa">Descripcion: {{ categoria.descripcion }}</p>
+      </ion-label>
+      <div class="button-container">
+        <ion-button class="bottones" color="danger" (click)="DeleteCategoria(categoria.id)">Eliminar</ion-button>
+        <ion-button class="bottones" color="primary" (click)="openUpdateModal(categoria)">Editar</ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Empleados</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content> 
+  <div>
+    <ion-button color="success" (click)="openRegisterModal()" expand="full">Registrar Empleado</ion-button>
+  </div>
+  <div style="padding-left: 1%">
+    <ion-text color="danger" *ngIf="errorMessage"> {{ errorMessage }} </ion-text>
+    <ion-text color="success" *ngIf="Message"> {{ Message }} </ion-text>
+    <br><br>
+  </div>
+
+
+  <ion-item class="custom-select">
+    <ion-label>Cargo</ion-label>
+    <ion-select [(ngModel)]="selectedCargo" (ionChange)="filterEmpleados()" >
+      <ion-select-option value="1">Administrador</ion-select-option>
+      <ion-select-option value="2">Empleado</ion-select-option>
+      <ion-select-option value="all">Todos</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-list>
+    <ion-item *ngFor="let empleado of empleados">
+      <ion-label>
+        <h2>{{ empleado.cargo?.nombre }}</h2>
+        <p class="pa">Nombres: {{ empleado.nombres }}</p>
+        <p class="pa">Apellidos: {{ empleado.apellidos }}</p>
+        <p class="pa">Codigo: {{ empleado.users?.email }}</p>
+      </ion-label>
+      <div class="button-container">
+        <ion-button class="bottones" color="danger" (click)="DeleteEmpleado(empleado.id)">Eliminar</ion-button>
+        <ion-button class="bottones" color="primary" (click)="openUpdateModal(empleado)">Editar</ion-button>
+        <ion-button class="bottones" color="danger" *ngIf="usuariosExistentes[empleado.id]" (click)="eliminarUsuario(empleado.id)">Borrar Usuario</ion-button>
+        <ion-button class="bottones" color="success" *ngIf="!usuariosExistentes[empleado.id]" (click)="Create_User(empleado.id)">Crear User</ion-button>
+        <ion-button class="bottones" color="secondary" (click)="showEmpleadoDetails(empleado)">Detalle</ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

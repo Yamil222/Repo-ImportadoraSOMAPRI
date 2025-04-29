@@ -1,0 +1,34 @@
+<div *ngIf="isAuthenticated">
+  <ion-menu contentId="main-content" id="side-menu">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menú</ion-title>
+        <!-- Botón para cerrar el menú -->
+        <ion-buttons slot="end">
+          <ion-button (click)="closeMenu()">
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <div *ngIf="userRole === 1 || userRole === 2">
+          <ion-item routerLink="/home">Inicio</ion-item>
+          <!--<ion-item routerLink="/categorias">Categorías</ion-item>-->
+          <!--<ion-item routerLink="/clientes">Clientes</ion-item>-->
+          <!--<ion-item routerLink="/marcas">Marcas</ion-item>-->
+          <!--<ion-item routerLink="/repuestos">Repuestos</ion-item>-->
+        </div>
+        <div *ngIf="userRole === 1">
+          <ion-item routerLink="/empleados">Empleados</ion-item>
+          <!--<ion-item routerLink="/solicitud-grafico">Solicitud de Gráfico</ion-item>-->
+        </div>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div id="main-content">
+    <!-- Contenido principal aquí -->
+  </div>
+</div>

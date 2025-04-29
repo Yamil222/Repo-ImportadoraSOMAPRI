@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Actualizar Categoria</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="updateCategoria()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input
+        [(ngModel)]="categoria.nombre"
+        name="nombre"
+        required
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="errorMessages?.['nombre']" style="color: red; margin-bottom: 10px; text-align: center">
+      {{ errorMessages['nombre'] }}
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input
+        [(ngModel)]="categoria.descripcion"
+        name="descripcion"
+        required
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="errorMessages?.['descripcion']" style="color: red; margin-bottom: 10px; text-align: center">
+      {{ errorMessages['descripcion'] }}
+    </div>
+
+    <ion-button expand="full" type="submit">Actualizar Categoria</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Marcas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-button color="success" (click)="openRegisterModal()" expand="full">Registrar Marca</ion-button>
+  </div>
+  
+  <div style="padding-left: 1%">
+    <ion-text color="danger" *ngIf="errorMessage"> {{ errorMessage }} </ion-text>
+    <ion-text color="success" *ngIf="Message"> {{ Message }} </ion-text>
+    <br><br>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let marca of marcas">
+      <ion-label>
+        <h2>{{ marca.nombre }}</h2>
+        <p class="pa">Pais: {{ marca.pais }}</p>
+        <p class="pa">Email de contacto: {{ marca.email }}</p>
+        <p class="pa">Direccion: {{ marca.direccion }}</p>
+        <!-- <p class="pa">Telefono de contacto: {{ marca.telefono }}</p> -->
+        <p class="pa">Sitio web: {{ marca.sitio_web }}</p>
+        <p class="pa">Descripcion: {{ marca.descripcion }}</p>
+      </ion-label>
+      <div class="button-container">
+        <ion-button color="danger" (click)="DeleteMarca(marca.id)" class="bottones">Eliminar</ion-button>
+        <ion-button color="primary" (click)="openUpdateModal(marca)" class="bottones">Editar</ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

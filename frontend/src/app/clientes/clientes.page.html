@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ editandoCliente ? 'Editar Cliente' : 'Agregar Cliente' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulario para agregar o editar un cliente -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{ editandoCliente ? 'Editar Cliente' : 'Agregar Cliente' }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+<!-- Campo CI -->
+<ion-item>
+  <ion-label position="floating">CI *</ion-label>
+  <ion-input
+      [(ngModel)]="clienteActual.ci"
+      name="ci"
+      type="number"
+      required>
+  </ion-input>
+</ion-item>
+<div *ngIf="errorMessages?.['ci']" style="color: red; margin-bottom: 10px; text-align: center">
+  {{ errorMessages['ci'] }}
+</div>
+
+<!-- Campo Nombre -->
+<ion-item>
+  <ion-label position="floating">Nombre *</ion-label>
+  <ion-input
+      [(ngModel)]="clienteActual.nombres"
+      name="nombres"
+      type="text"
+      required
+      (ionInput)="validarSoloLetras($event, 'nombres'); validarCampo('nombres')">
+  </ion-input>
+</ion-item>
+<div *ngIf="errorMessages?.['nombres']" style="color: red; margin-bottom: 10px; text-align: center">
+  {{ errorMessages['nombres'] }}
+</div>
+
+<!-- Campo Apellidos -->
+<ion-item>
+  <ion-label position="floating">Apellidos *</ion-label>
+  <ion-input
+      [(ngModel)]="clienteActual.apellidos"
+      name="apellidos"
+      type="text"
+      required
+      (ionInput)="validarSoloLetras($event, 'apellidos'); validarCampo('apellidos')">
+  </ion-input>
+</ion-item>
+<div *ngIf="errorMessages?.['apellidos']" style="color: red; margin-bottom: 10px; text-align: center">
+  {{ errorMessages['apellidos'] }}
+</div>
+
+<!-- Campo Teléfono -->
+<ion-item>
+  <ion-label position="floating">Celular *</ion-label>
+  <ion-input
+      [(ngModel)]="clienteActual.telefono"
+      name="telefono"
+      type="tel"
+      required
+      (ionInput)="validarCampo('telefono')">
+  </ion-input>
+</ion-item>
+<div *ngIf="errorMessages?.['telefono']" style="color: red; margin-bottom: 10px; text-align: center">
+  {{ errorMessages['telefono'] }}
+</div>
+
+<!-- Campo Dirección -->
+<ion-item>
+  <ion-label position="floating">Dirección *</ion-label>
+  <ion-input
+      [(ngModel)]="clienteActual.direccion"
+      name="direccion"
+      required
+      (ionInput)="validarCampo('direccion')">
+  </ion-input>
+</ion-item>
+<div *ngIf="errorMessages?.['direccion']" style="color: red; margin-bottom: 10px; text-align: center">
+  {{ errorMessages['direccion'] }}
+</div>
+
+      <!-- Botón de acción -->
+      <ion-button expand="block" color="primary" (click)="editandoCliente ? actualizarCliente() : agregarCliente()">
+        {{ editandoCliente ? 'Actualizar' : 'Agregar' }}
+      </ion-button>
+      <ion-button expand="block" color="medium" *ngIf="editandoCliente" (click)="cancelarEdicion()">
+        Cancelar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Clientes Registrados</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid fixed class="full-width-grid">
+        <!-- Encabezados de la tabla -->
+        <ion-row>
+          <ion-col size="2" class="header-col"><strong>CI</strong></ion-col>
+          <ion-col size="2" class="header-col"><strong>Nombre</strong></ion-col>
+          <ion-col size="2" class="header-col"><strong>Apellidos</strong></ion-col>
+          <ion-col size="2" class="header-col"><strong>Teléfono</strong></ion-col>
+          <ion-col size="4" class="header-col"><strong>Acciones</strong></ion-col>
+        </ion-row>
+  
+        <!-- Filas de datos -->
+        <ion-row *ngFor="let cliente of clientes">
+          <ion-col size="2">{{ cliente.ci }}</ion-col>
+          <ion-col size="2">{{ cliente.nombres }}</ion-col>
+          <ion-col size="2">{{ cliente.apellidos }}</ion-col>
+          <ion-col size="2">{{ cliente.telefono }}</ion-col>
+          <ion-col size="4">
+            <ion-button size="small" (click)="editarCliente(cliente)">Editar</ion-button>
+            <ion-button size="small" color="danger" (click)="eliminarCliente(cliente.id)">Eliminar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  
+  
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrar Categoria</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (submit)="AddCategoria()">
+    <ion-item>
+      <ion-label position="floating">Nombre *</ion-label>
+      <ion-input [(ngModel)]="nuevacategoria.nombre" name="nombre" required></ion-input>
+    </ion-item>
+    <div *ngIf="errorMessages?.['nombre']" style="color: red; margin-bottom: 10px; text-align: center">
+      {{ errorMessages['nombre'] }}
+    </div>
+    <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input [(ngModel)]="nuevacategoria.descripcion" name="descripcion"></ion-input>
+    </ion-item>
+    <div *ngIf="errorMessages?.['descripcion']" style="color: red; margin-bottom: 10px; text-align: center">
+      {{ errorMessages['descripcion'] }}
+    </div>
+    
+    <ion-button expand="full" type="submit">Agregar Categoria</ion-button>
+  </form>
+</ion-content>
