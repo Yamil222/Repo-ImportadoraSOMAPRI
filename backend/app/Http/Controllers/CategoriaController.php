@@ -129,5 +129,3 @@ class CategoriaController extends Controller
         }
     }
 }
-
-
