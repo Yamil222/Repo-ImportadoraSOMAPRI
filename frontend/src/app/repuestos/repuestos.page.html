@@ -24,10 +24,10 @@
           <h2>{{ repuesto.nombre }}</h2>
           <p>Codigo OEM: {{ repuesto.codigo_oem }}</p>
           <p>Numero de Serie: {{ repuesto.numero_serie }}</p>
-          <img
-            [src]="'http://localhost:8000/backend/public/storage/imagenes'"
+          <!--<img
+            [src]="'http://localhost:8000/public/storage/imagenes'"
             style="width: 150px; height: 150px"
-          />
+          />-->
         </ion-label>
         <div class="button-container">
           <ion-button color="danger" (click)="DeleteRepuesto(repuesto.id)" class="bottones">Eliminar</ion-button>

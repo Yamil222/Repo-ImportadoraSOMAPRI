@@ -27,7 +27,7 @@ class CategoriaController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'nombre' => 'required|string|max:30|regex:/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\s.]+$/|not_regex:/^\s*$/',
+                'nombre' => 'required|string|max:30|regex:/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\s.]+$/|not_regex:/^\s*$/|unique:categorias,nombre',
                 'descripcion' => [
                     'nullable',
                     'string',
@@ -38,6 +38,7 @@ class CategoriaController extends Controller
                 'nombre.required' => 'El campo de nombre es obligatorio.',
                 'nombre.regex' => 'El nombre solo debe contener letras, números, espacios y puntos.',
                 'nombre.max' => 'Solo se permite hasta maximo 30 caracteres en el campo nombre.',
+                'nombre.unique' => 'Ya existe una categoría registrada con ese nombre.',
                 'descripcion.max' => 'La descripción no debe exceder los 300 caracteres.',
                 //'not_regex' => 'El campo no debe contener solo espacios en blanco.'
             ]);
@@ -63,7 +64,7 @@ class CategoriaController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'nombre' => 'required|string|max:30|regex:/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\s.]+$/|not_regex:/^\s*$/',
+                'nombre' => 'required|string|max:30|regex:/^[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\s.]+$/|not_regex:/^\s*$/|unique:categorias,nombre,' . $id,
                 'descripcion' => [
                     'nullable',
                     'string',
@@ -74,6 +75,7 @@ class CategoriaController extends Controller
                 'nombre.required' => 'El campo de nombre es obligatorio.',
                 'nombre.regex' => 'El nombre solo debe contener letras, números, espacios y puntos.',
                 'nombre.max' => 'Solo se permite hasta maximo 30 caracteres en el campo nombre.',
+                'nombre.unique' => 'Ya existe una categoría registrada con ese nombre.',
                 'descripcion.max' => 'La descripción no debe exceder los 300 caracteres.',
                 //'not_regex' => 'El campo no debe contener solo espacios en blanco.'
             ]);

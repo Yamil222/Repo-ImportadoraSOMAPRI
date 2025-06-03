@@ -31,6 +31,7 @@ class MarcaController extends Controller
                     'required',
                     'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ. ]+$/',
                     'max:30',
+                    'unique:marcas,nombre',
                 ],
                 'pais' => [
                     'required',
@@ -70,6 +71,7 @@ class MarcaController extends Controller
                 'nombre.required' => 'El campo de nombre es obligatorio.',
                 'nombre.regex' => 'El nombre solo debe contener letras, números, puntos y espacios.',
                 'nombre.max' => 'Solo se permite hasta maximo 30 caracteres en el campo nombre.',
+                'nombre.unique' => 'Ya existe una marca registrada con ese nombre.',
                 'pais.required' => 'El país es obligatorio.',
                 'pais.regex' => 'El país solo debe contener letras.',
                 'pais.max' => 'Solo se permite hasta maximo 30 caracteres en el campo pais.',
@@ -111,7 +113,8 @@ class MarcaController extends Controller
                 'nombre' => [
                     'required',
                     'regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ. ]+$/',
-                    'max:30'
+                    'max:30',
+                    'unique:marcas,nombre,' . $id,
                 ],
                 'pais' => [
                     'required',
@@ -147,6 +150,7 @@ class MarcaController extends Controller
                 'nombre.required' => 'El campo de nombre es obligatorio.',
                 'nombre.regex' => 'El nombre solo debe contener letras, números, puntos y espacios.',
                 'nombre.max' => 'Solo se permite hasta maximo 30 caracteres en el campo nombre.',
+                'nombre.unique' => 'Ya existe una marca registrada con ese nombre.',
                 'pais.required' => 'El país es obligatorio.',
                 'pais.regex' => 'El país solo debe contener letras.',
                 'pais.max' => 'Solo se permite hasta maximo 30 caracteres en el campo pais.',

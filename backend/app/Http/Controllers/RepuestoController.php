@@ -40,7 +40,7 @@ class RepuestoController extends Controller
         //return response()->json(['requestData' => $request->get('imagen')]);
         try {
             $validatedData = $request->validate([
-                'nombre' => 'required|max:100|regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ. ]+$/',
+                'nombre' => 'required|max:100|regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ. ]+$/|unique:repuestos,nombre',
                 'descripcion' => 'max:100|nullable',
                 'cantidad_stock' => 'required|integer|min:1',
                 'imagen' => 'nullable|image', // Validación para imagen
@@ -54,6 +54,7 @@ class RepuestoController extends Controller
                 'nombre.required' => 'El campo de nombre es obligatorio.',
                 'nombre.max' => 'El nombre excede el número de caracteres.',
                 'nombre.regex' => 'El nombre solo debe contener letras, números, puntos y espacios.',
+                'nombre.unique' => 'El nombre del repuesto ya existe.',
                 'descripcion.max' => 'La descripción excede el número de caracteres.',
                 'cantidad_stock.required' => 'El campo de cantidad de stock es obligatorio.',
                 'cantidad_stock.integer' => 'La cantidad en stock debe ser un número.',
@@ -122,7 +123,7 @@ class RepuestoController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'nombre' => 'required|max:100|regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ. ]+$/',
+                'nombre' => 'required|max:100|regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ. ]+$/|unique:repuestos,nombre,' . $id,
                 'descripcion' => 'max:100|nullable',
                 'cantidad_stock' => 'integer|min:0',
                 //'imagen' => 'nullable|image', // Validación para imagen
@@ -130,12 +131,13 @@ class RepuestoController extends Controller
                 'id_categoria' => 'integer|exists:categorias,id',
                 'costo_unitario' => 'numeric|min:0',
                 'precio_unitario' => 'numeric|min:0',
-                'codigo_oem' => 'required|string|max:50|regex:/^[A-Za-z0-9-. ]{6,20}$/',
+                'codigo_oem' => 'required|string|max:50|regex:/^[A-Za-z0-9-. ]{6,20}$/|unique:repuestos,codigo_oem,' . $id,
                 'numero_serie' => 'required|string|max:100|regex:/^[A-HJ-NPR-Z0-9a-hj-npr-z]{6,30}$/',
             ], [
                 'nombre.required' => 'El campo de nombre es obligatorio.',
                 'nombre.max' => 'El nombre excede el número de caracteres.',
                 'nombre.regex' => 'El nombre solo debe contener letras, números, puntos y espacios.',
+                'nombre.unique' => 'El nombre del repuesto ya está en uso.',
                 'descripcion.max' => 'La descripción excede el número de caracteres.',
                 'cantidad_stock.required' => 'El campo de cantidad de stock es obligatorio.',
                 'cantidad_stock.integer' => 'La cantidad en stock debe ser un número.',
@@ -154,6 +156,7 @@ class RepuestoController extends Controller
                 'codigo_oem.regex' => 'El código OEM es invalido.',
                 'codig_oem.max' => 'La codigo oem excede el número de caracteres.',
                 'codigo_oem.required' => 'El código OEM es obligatorio.',
+                'codigo_oem.unique' => 'El código OEM ya está en uso.',
                 'numero_serie.required' => 'El número de serie es obligatorio.',
                 'numero_serie.regex' => 'El número de serie es invalido.',
                 'numero_serie.max' => 'El numero de serie excede el número de caracteres.',

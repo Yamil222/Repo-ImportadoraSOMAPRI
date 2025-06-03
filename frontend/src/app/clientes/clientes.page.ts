@@ -53,7 +53,7 @@ export class ClientesPage implements OnInit {
           } else {
             // Handle other types of errors
             const errorMessage = err.error?.messageError || err.message || 'Error desconocido';
-            this.mostrarToast('Error al agregar el cliente: ' + errorMessage);
+            this.mostrarToast('Error al agregar el cliente');
             this.errorMessages = {};
           }
         },
