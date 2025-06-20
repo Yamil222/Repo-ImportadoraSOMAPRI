@@ -10,23 +10,33 @@ db_config = {
     'port': 3306
 }
 
+# Diccionario de nombres de repuestos
+repuestos_nombres = {
+    1: "Filtro de aceite",
+    2: "Bomba de inyección",
+    3: "Sensor de presión de aceite",
+    4: "Convertidor de torque",
+    5: "Discos de freno"
+}
+
 # Conexión a la base de datos
 cnx = mysql.connector.connect(**db_config)
 cursor = cnx.cursor()
 
 def insert_growth_data():
-    # Usaremos 1 solo registro por mes para simplificar la tendencia
-    for repuesto_id in range(1, 6):  # 5 repuestos
-        base_ventas = random.randint(5, 20)  # ventas base por repuesto (para variarlo)
+    for repuesto_id, nombre_repuesto in repuestos_nombres.items():
+        base_ventas = random.randint(5, 20)
         for anio in [2022, 2023, 2024]:
-            growth_factor = 1 + 0.3 * (anio - 2022)  # 30% crecimiento anual aproximadamente
+            growth_factor = 1 + 0.3 * (anio - 2022)
             for mes in range(1, 13):
-                # Ventas crecen linealmente cada mes y año
                 ventas = int(base_ventas * growth_factor * (1 + mes/12))
-                cantidad = ventas + random.randint(5, 20)  # cantidad >= ventas con algo de variación
+                cantidad = ventas + random.randint(5, 20)
                 
-                query = "INSERT INTO regresion (id_repuesto, ventas, cantidad, mes, anio) VALUES (%s, %s, %s, %s, %s)"
-                cursor.execute(query, (repuesto_id, ventas, cantidad, mes, anio))
+                query = """
+                INSERT INTO regresion (id_repuesto, repuesto, ventas, cantidad, mes, anio)
+                VALUES (%s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(query, (repuesto_id, nombre_repuesto, ventas, cantidad, mes, anio))
 
     cnx.commit()
 

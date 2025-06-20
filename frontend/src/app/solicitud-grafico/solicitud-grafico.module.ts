@@ -8,6 +8,9 @@ import { SolicitudGraficoPageRoutingModule } from './solicitud-grafico-routing.m
 
 import { SolicitudGraficoPage } from './solicitud-grafico.page';
 
+// Importa el pipe aquí
+import { FiltroRepuestoPipe } from '../filtro-repuesto.pipe'; // Ajusta la ruta si tu pipe está en otro lado
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +18,9 @@ import { SolicitudGraficoPage } from './solicitud-grafico.page';
     IonicModule,
     SolicitudGraficoPageRoutingModule
   ],
-  declarations: [SolicitudGraficoPage]
+  declarations: [
+    SolicitudGraficoPage,
+    FiltroRepuestoPipe  // Declara el pipe aquí
+  ]
 })
 export class SolicitudGraficoPageModule {}

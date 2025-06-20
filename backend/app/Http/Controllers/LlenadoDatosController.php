@@ -43,7 +43,7 @@ class LlenadoDatosController extends Controller
                 ->get();
 
             if ($movimientos->isEmpty()) {
-                return response()->json(['message' => 'No se encontraron movimientos para el id_repuesto y año proporcionados.'], 404);
+                return response()->json(['message' => 'No se encontraron movimientos para el repuesto y año proporcionados.'], 404);
             }
 
             // Variables para procesar las ventas

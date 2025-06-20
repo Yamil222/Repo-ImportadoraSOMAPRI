@@ -77,4 +77,26 @@ class regresionController extends Controller
 
         return response()->json($resultados);
     }
+    public function listarResumenRepuestos()
+    {
+        $resumen = DB::table('regresion')
+            ->select('id_repuesto', DB::raw('MAX(repuesto) as repuesto'), DB::raw('GROUP_CONCAT(DISTINCT anio ORDER BY anio) as anios'))
+            ->groupBy('id_repuesto')
+            ->get();
+
+        return response()->json($resumen);
+    }
+    public function obtenerNombreRepuesto($id_repuesto)
+    {
+        $repuesto = DB::table('regresion')
+            ->where('id_repuesto', $id_repuesto)
+            ->select('repuesto')
+            ->first();
+
+        if ($repuesto) {
+            return response()->json(['nombre' => $repuesto->repuesto]);
+        } else {
+            return response()->json(['error' => 'Repuesto no encontrado'], 404);
+        }
+    }
 }

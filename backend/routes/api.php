@@ -45,6 +45,9 @@ Route::apiResource('empleados', EmpleadoController::class);
 Route::get('/empleados/filter/{cargo}', [EmpleadoController::class, 'filterByCargo']);
 Route::apiResource('repuestos', RepuestoController::class);
 Route::apiResource('marcas', MarcaController::class);
+Route::get('/resumen-repuestos', [regresionController::class, 'listarResumenRepuestos']);
+Route::get('repuesto-nombre/{id_repuesto}', [RegresionController::class, 'obtenerNombreRepuesto']);
+
 
 /*
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])

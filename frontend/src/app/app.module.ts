@@ -12,12 +12,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavComponent } from './components/nav/nav.component';
 import { SlideMenuComponent } from './components/slide-menu/slide-menu.component';
 
+import { FiltroRepuestoPipe } from './filtro-repuesto.pipe';
+
 
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, SlideMenuComponent],
+  declarations: [AppComponent, NavComponent, SlideMenuComponent, FiltroRepuestoPipe],
   exports: [NavComponent],
-  imports: [HttpClientModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [HttpClientModule,BrowserModule,CommonModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

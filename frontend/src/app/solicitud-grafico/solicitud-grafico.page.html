@@ -37,9 +37,47 @@
       Ver Gráfico
     </ion-button>
 
-    <!-- Display error message -->
+    <!-- ✅ Mensaje de éxito en verde -->
+    <ion-note *ngIf="successMessage" color="success" style="margin-top: 16px;">
+      {{ successMessage }}
+    </ion-note>
+
+    <!-- ❌ Mensaje de error en rojo -->
     <ion-note *ngIf="errorMessage" color="danger" style="margin-top: 16px;">
       {{ errorMessage }}
     </ion-note>
+
   </form>
+  <!-- Tabla resumen de repuestos -->
+  <ion-card *ngIf="resumenRepuestos.length > 0" style="margin-top: 20px;">
+    <ion-card-header>
+      <ion-card-title>Resumen de Repuestos Registrados</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="full" style="margin-bottom: 16px;">
+        <ion-label position="floating" style="font-weight: bold; font-size: 1rem;">
+          Escribe el nombre del repuesto
+        </ion-label>
+        <ion-input [(ngModel)]="filtroBusqueda" placeholder="Buscar repuesto..." type="text"></ion-input>
+      </ion-item>
+      <ion-grid>
+        <ion-row class="ion-text-center ion-text-bold">
+          <ion-col size="2">ID</ion-col>
+          <ion-col size="5">Repuesto</ion-col>
+          <ion-col size="3">Años</ion-col>
+          <ion-col size="2">Acción</ion-col> <!-- Nueva columna para botón -->
+        </ion-row>
+        <ion-row *ngFor="let item of resumenRepuestos | filtroRepuesto:filtroBusqueda" class="ion-text-center">
+          <ion-col size="2">{{ item.id_repuesto }}</ion-col>
+          <ion-col size="5">{{ item.repuesto }}</ion-col>
+          <ion-col size="3">{{ item.anios }}</ion-col>
+          <ion-col size="2">
+            <ion-button size="small" (click)="seleccionarRepuesto(item.id_repuesto)">
+              Seleccionar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

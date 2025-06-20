@@ -8,17 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./solicitud-grafico.page.scss'],
 })
 export class SolicitudGraficoPage {
+  successMessage: string = '';
+  filtroBusqueda: string = ''; 
   idRepuesto: number = 0;
   anio: number = 0;
-  errorMessage: string = ''; // Variable para mostrar el mensaje de error
-  years: number[] = []; // Array para almacenar los años
-  dataProcessed: boolean = false; // Track if data has been processed
+  errorMessage: string = '';
+  years: number[] = [];
+  dataProcessed: boolean = false;
+
+  // Nueva variable para guardar el resumen
+  resumenRepuestos: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {
-    this.generateYears(); // Generate years on component initialization
+    this.generateYears();
+    this.cargarResumenRepuestos(); // Llama la función para cargar resumen al iniciar
   }
 
-  // Generate years from 2000 to the current year
   generateYears() {
     const currentYear = new Date().getFullYear();
     for (let year = 2000; year <= currentYear; year++) {
@@ -26,10 +31,11 @@ export class SolicitudGraficoPage {
     }
   }
 
-  // Función para enviar los datos al backend
   submitForm() {
-    this.errorMessage = ''; // Reset error message before submission
-    this.dataProcessed = false; // Reset data processed flag
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.dataProcessed = false;
+
     if (!this.idRepuesto || !this.anio) {
       this.errorMessage = 'Por favor complete todos los campos antes de enviar.';
       return;
@@ -39,22 +45,30 @@ export class SolicitudGraficoPage {
 
     this.http.post('http://localhost:8000/api/llenar-test-reg', data).subscribe(
       (response: any) => {
-        // Check if the response indicates data has been processed
         if (response.message) {
-          this.dataProcessed = true; // Set flag to true
-          this.errorMessage = response.message; // Show the message
+          this.dataProcessed = true;
+          this.successMessage = response.message;
 
-          // Set a timer to redirect after 5 seconds
           setTimeout(() => {
             this.router.navigate([`/sales-prediction/${this.idRepuesto}`]);
-          }, 5000); // 5000 milliseconds = 5 seconds
+          }, 5000);
         }
       },
       (error) => {
-        // Handle error as before
         console.error('Error al procesar los datos:', error);
         this.errorMessage = error.error.message || 'Hubo un error al procesar los datos. Intente de nuevo.';
       }
     );
+  }
+
+  // Nueva función para obtener resumen de repuestos desde backend
+  cargarResumenRepuestos() {
+    this.http.get<any[]>('http://localhost:8000/api/resumen-repuestos').subscribe(
+      data => this.resumenRepuestos = data,
+      error => console.error('Error al obtener resumen de repuestos', error)
+    );
+  }
+  seleccionarRepuesto(id: number) {
+    this.idRepuesto = id;
   }
 }
